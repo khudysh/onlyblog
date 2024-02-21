@@ -1,31 +1,32 @@
-import App from "../app/App.tsx";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import NotFound from '../pages/NotFound.tsx'
-import About from "../pages/About.tsx";
-import Profile from "../pages/Profile.tsx";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Main from '../pages/Main/Main.tsx'
+import NotFound from '../pages/NotFound/NotFound.tsx'
+import Profile from '../pages/Profile/Profile.tsx'
+import Auth from '../pages/Auth/Auth.tsx'
+import Layout from '../Layout.tsx'
 
 const router = createBrowserRouter([
     {
-      path: "/",
-      element: <App />,
-      errorElement: <NotFound />,
-      children: [
-        {
-            path: "/about",
-            element: <About />
-        },
-        {
-            path: "/profile/:profileId",
-            element: <Profile />
-        },
-      ],
+        path: '/',
+        element: <Layout />,
+        errorElement: <NotFound />,
+        children: [
+            {
+                path: '/',
+                element: <Main />,
+                
+            },
+            {
+                path: '/profile/:profileId',
+                element: <Profile />,
+            },
+            {
+                path: '/auth',
+                element: <Auth />,
+            },
+        ]
     },
-  ]);
 
+])
 
 export const AppRouterProvider = () => <RouterProvider router={router} />
-
-
