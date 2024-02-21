@@ -1,7 +1,8 @@
 .test {
     background-color: rgb(0, 136, 255);
+    color: red;
 
-    &__hehe {
+    &-hehe {
         background-color: aqua;
     }
 }

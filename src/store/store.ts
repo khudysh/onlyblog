@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "./counterSlice";
+import countSlice from "./countSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterSlice
+        counter: countSlice,
     }
 })
 
-// Выведение типов `RootState` и `AppDispatch` из хранилища
-export type RootState = ReturnType<typeof store.getState>
-// Выведенные типы: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

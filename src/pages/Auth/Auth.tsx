@@ -19,7 +19,8 @@ function Auth() {
 
 
   return (
-    <div className={styles.test__hehe}>
+    <div className={`${styles['test-hehe']} ${styles['test']}`} >
+      hehehe
       <Form
         name="basic"
         labelCol={{ span: 8 }}
