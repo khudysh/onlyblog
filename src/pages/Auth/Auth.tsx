@@ -1,10 +1,28 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import styles from './Auth.module.scss'
+import { login } from '../../store/user/userActions';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooksState';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Auth() {
+  const dispatch = useAppDispatch();
+  const { isLoading, error, isSuccess, curUser } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  
+
+  useEffect(() => {
+    if (isSuccess && curUser) {
+      navigate('/');
+    }
+
+    if (error) {
+      console.log(error)
+    }
+  }, [isSuccess, error]);
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    dispatch(login(values));
   };
 
   const onFinishFailed = (errorInfo: any) => {

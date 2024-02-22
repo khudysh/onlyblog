@@ -23,10 +23,11 @@ const router = createBrowserRouter([
             {
                 path: '/auth',
                 element: <Auth />,
+
             },
         ]
     },
 
 ])
 
-export const AppRouterProvider = () => <RouterProvider router={router} />
+export const MainRouterProvider = () => <RouterProvider router={router} />
