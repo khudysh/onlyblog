@@ -1,11 +1,10 @@
-import axios from "axios"
+import axios from "axios";
 
-const URL = 'https://dummyjson.com/'
+const URL: string = 'https://dummyjson.com/';
 
 const api = axios.create({
-    baseURL: URL
-})
+    baseURL: URL,
+});
 
-export default api
-
+export default api;
 

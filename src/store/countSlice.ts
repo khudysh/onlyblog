@@ -38,6 +38,13 @@ const countSlice = createSlice({
                     state.isLoading = false;
                 }
             )
+            .addCase(incrementAsync.rejected,
+                (state, { payload }: any,) => {
+                    // state.value += payload;
+                    console.log(payload)
+                    state.isLoading = false;
+                }
+            )
     }
 })
 

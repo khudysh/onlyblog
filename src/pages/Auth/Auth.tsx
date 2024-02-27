@@ -1,15 +1,15 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import styles from './Auth.module.scss'
-import { login } from '../../store/user/userActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooksState';
+import { userLogin } from '../../store/user/userActions';
+import { userLoginData } from '../../store/user/userTypes';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Auth() {
-  const dispatch = useAppDispatch();
-  const { isLoading, error, isSuccess, curUser } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch()
+  const { isLoading, isSuccess, error, curUser } = useAppSelector((state) => state.user)
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     if (isSuccess && curUser) {
@@ -19,10 +19,12 @@ function Auth() {
     if (error) {
       console.log(error)
     }
-  }, [isSuccess, error]);
 
-  const onFinish = (values: any) => {
-    dispatch(login(values));
+
+  }, [isSuccess, error])
+
+  const onFinish = (values: userLoginData) => {
+    dispatch(userLogin(values));
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -35,10 +37,8 @@ function Auth() {
     remember?: string;
   };
 
-
   return (
-    <div className={`${styles['test-hehe']} ${styles['test']}`} >
-      hehehe
+    <div >
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -70,6 +70,7 @@ function Auth() {
           valuePropName="checked"
           wrapperCol={{ offset: 8, span: 16 }}
         >
+          {error && <p className={styles.test}>Введенные данные не верны</p>}
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
