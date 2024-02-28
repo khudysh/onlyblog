@@ -1,15 +1,15 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import styles from './Auth.module.scss'
+import { login } from '../../store/user/userActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooksState';
-import { userLogin } from '../../store/user/userActions';
-import { userLoginData } from '../../store/user/userTypes';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Auth() {
-  const dispatch = useAppDispatch()
-  const { isLoading, isSuccess, error, curUser } = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch();
+  const { isLoading, error, isSuccess, curUser } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     if (isSuccess && curUser) {
@@ -19,12 +19,10 @@ function Auth() {
     if (error) {
       console.log(error)
     }
+  }, [isSuccess, error]);
 
-
-  }, [isSuccess, error])
-
-  const onFinish = (values: userLoginData) => {
-    dispatch(userLogin(values));
+  const onFinish = (values: any) => {
+    dispatch(login(values));
   };
 
   const onFinishFailed = (errorInfo: any) => {

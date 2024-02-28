@@ -2,21 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import api from "../api";
 import { userLoginData } from "./userTypes";
 
-export const userLogin = createAsyncThunk(
-    "user/userLogin",
-    async (userLoginData: userLoginData, thunkAPI) => {
+export const login = createAsyncThunk(
+    "user/login",
+    async (userData: userLoginData, thunkAPI) => {
         try {
-            let res = await api.post('auth/login', userLoginData);
-
+            let res = await api.post('auth/login', userData)
             if (res.status !== 200) {
                 return thunkAPI.rejectWithValue(res.data);
             }
-
-            return res.data;
-
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error)
+            return res.data
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
         }
+
     }
 )
 
@@ -26,18 +24,16 @@ export const getCurUser = createAsyncThunk(
         try {
             let res = await api.get('auth/me', {
                 headers: {
-                    Authorization: 'Bearer ' + token, 
+                    Authorization: 'Bearer ' + token,
                 }
-            });
-
+            })
             if (res.status !== 200) {
                 return thunkAPI.rejectWithValue(res.data);
             }
-
-            return res.data;
-
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error)
+            return res.data
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
         }
+
     }
 )

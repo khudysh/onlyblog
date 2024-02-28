@@ -1,19 +1,22 @@
-export type userData = Partial<{
+import { SerializedError } from "@reduxjs/toolkit/react"
+
+export type userType = Partial<{
     id: number,
-    username: string,
-    email: string,
     firstName: string,
     lastName: string,
     gender: string,
+    email: string,
+    username: string,
     image: string,
 }>
 
 export type userState = {
-    curUser: userData,
+    userList: userType[],
+    curUser: userType,
     isLoading: boolean,
     isSuccess: boolean,
-    error?: string, // ????
-    token: string,
+    error?: SerializedError,
+    token: string
 }
 
 export type userLoginData = {

@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userState } from "./userTypes";
-import { getCurUser, userLogin } from "./userActions";
+import { getCurUser, login } from "./userActions";
 
 const initialState: userState = {
+    userList: [],
     curUser: {},
     isLoading: false,
     isSuccess: false,
-    error: '',
+    error: undefined,
     token: localStorage.getItem('token') ?? ''
 }
 
@@ -16,47 +17,59 @@ const userSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(userLogin.pending,
+            .addCase(login.pending,
                 (state) => {
+                    console.log("Loading...");
                     state.isLoading = true;
                     state.isSuccess = false;
-                    state.error = ''
+                    state.error = undefined
                 }
             )
-            .addCase(userLogin.rejected,
+            .addCase(login.rejected,
                 (state, action) => {
                     state.isLoading = false;
                     state.isSuccess = false;
-                    state.error = action.error.message
+                    state.error = action.error
                 }
             )
-            .addCase(userLogin.fulfilled,
+            .addCase(login.fulfilled,
                 (state, action) => {
                     localStorage.setItem('token', action.payload.token)
                     state.isLoading = false;
                     state.isSuccess = true;
-                    state.error = '';
-                    state.curUser = action.payload;
-                    state.token = action.payload.token;
+                    state.error = undefined
+                    state.curUser = action.payload
+                }
+            )
+            // getCurUser
+            .addCase(getCurUser.pending,
+                (state) => {
+                    console.log("Loading...");
+                    state.isLoading = true;
+                    state.isSuccess = false;
+                    state.error = undefined
                 }
             )
             .addCase(getCurUser.rejected,
                 (state, action) => {
                     state.isLoading = false;
                     state.isSuccess = false;
-                    state.error = action.error.message
+                    state.error = action.error
                 }
             )
             .addCase(getCurUser.fulfilled,
                 (state, action) => {
+                    // localStorage.setItem('token', action.payload.token)
                     state.isLoading = false;
                     state.isSuccess = true;
-                    state.error = '';
-                    state.curUser = action.payload;
+                    state.error = undefined
+                    state.curUser = action.payload
                 }
             )
-    }
+    },
 })
+
+
 
 export const { } = userSlice.actions
 
