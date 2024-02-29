@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userState } from "./userTypes";
-import { getCurUser, userLogin } from "./userActions";
+import { getCurUser,  userLogin } from "./userActions";
 
 const initialState: userState = {
     curUser: {},

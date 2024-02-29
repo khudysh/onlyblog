@@ -1,15 +1,15 @@
-export type userData = Partial<{
+export type userType = Partial<{
     id: number,
-    username: string,
-    email: string,
     firstName: string,
     lastName: string,
     gender: string,
+    email: string,
+    username: string,
     image: string,
 }>
 
 export type userState = {
-    curUser: userData,
+    curUser: userType,
     isLoading: boolean,
     isSuccess: boolean,
     error?: string, // ????

@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksState";
-import { userData } from "../../store/user/userTypes";
 import { Card, Avatar, Descriptions, DescriptionsProps, Button } from "antd";
 import "./Profile.scss"
+import { userType } from "../../store/user/userTypes";
+import { getUserProfile } from "../../store/blog/blogActions";
 function Profile() {
   const { profileId } = useParams();
-  const dispatch = useAppDispatch()
-  const { curUser } = useAppSelector((state) => state.user)
-
-  const [profileUser, setProfileUser] = useState<userData>({})
+  const dispatch = useAppDispatch();
+  const { curUser } = useAppSelector((state) => state.user);
+  const { profileUser, posts } = useAppSelector((state) => state.blog);
 
   useEffect(() => {
     document.title = profileId!;
-
-    if (profileId == curUser.username) {
-      setProfileUser(curUser);
-    }
-    // else dispatch(getUserByUsername(profileId))
+    dispatch(getUserProfile(profileId!))
   }, [profileId, curUser])
 
   const items: DescriptionsProps['items'] = [
