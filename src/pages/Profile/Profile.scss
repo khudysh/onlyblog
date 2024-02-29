@@ -2,19 +2,34 @@
 
 .profile {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
 
     &-card {
         display: flex;
         flex-direction: column;
         align-items: center;
+        height: min-content;
     }
 
     &-avatar {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    &-posts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+
+        &-post {
+            width: 80% !important;
+            margin-bottom: 10px;
+            max-width: 800px;
+        }
     }
 }
