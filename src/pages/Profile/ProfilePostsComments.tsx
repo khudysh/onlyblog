@@ -1,16 +1,16 @@
 import { Avatar } from 'antd'
-import React from 'react'
 import { commentType } from '../../store/blog/blogTypes'
+import { memo } from 'react'
 
-function ProfileComments(props: commentType) {
+const ProfilePostComments = memo(function ({comment}: {comment: commentType}) {
     return (
         <div className="comment">
             <p>
                 <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
-                {props.user.username}</p>
-            <p className="comment-body">{props.body}</p>
+                {comment.user.username}</p>
+            <p className="comment-body">{comment.body}</p>
         </div>
     )
-}
+})
 
-export default ProfileComments
+export default ProfilePostComments

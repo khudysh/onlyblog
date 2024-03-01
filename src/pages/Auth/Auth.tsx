@@ -9,7 +9,7 @@ import { USER_LOGOUT } from '../../store/user/userSlice';
 
 function Auth() {
   const dispatch = useAppDispatch()
-  const { isLoading, isSuccess, error, curUser } = useAppSelector((state) => state.user)
+  const { isSuccess, error, curUser } = useAppSelector((state) => state.user)
   const navigate = useNavigate();
   const location = useLocation();
 

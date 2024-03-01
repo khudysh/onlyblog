@@ -33,7 +33,7 @@ const blogSlice = createSlice({
                 (state, action) => {
                     state.isLoading = false;
                     state.isSuccess = false;
-                    // state.error = action.payload
+                    // state.error = action.payload.message
                 }
             )
             .addCase(getUserProfile.fulfilled,

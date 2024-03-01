@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { MainRouterProvider } from './router/Router'
 import { store } from './store/store'
