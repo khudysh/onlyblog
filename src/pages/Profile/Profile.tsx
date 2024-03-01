@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksState";
-<<<<<<< HEAD
-import { userType } from "../../store/user/userTypes";
-=======
-import { Card, Avatar, Descriptions, DescriptionsProps, Button, Badge } from "antd";
+import { Card, Avatar, Descriptions, DescriptionsProps, Button, Badge, Divider, List, Modal } from "antd";
 import "./Profile.scss"
-import { userType } from "../../store/user/userTypes";
-import { getUserProfile } from "../../store/blog/blogActions";
->>>>>>> 5476a8fc10c3fb40c9ebb56325b91453387c367b
+import { getPostComments, getSubs, getUserProfile } from "../../store/blog/blogActions";
+import { subscriptionType } from "../../store/blog/blogTypes";
 function Profile() {
   const { profileId } = useParams();
   const dispatch = useAppDispatch();
   const { curUser } = useAppSelector((state) => state.user);
-  const { profileUser, posts } = useAppSelector((state) => state.blog);
+  const { profileUser, posts, subs } = useAppSelector((state) => state.blog);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<subscriptionType>();
+
+  const showModal = (sub: subscriptionType) => {
+    setIsModalOpen(true);
+    setModalContent(sub);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     document.title = profileId!;
-<<<<<<< HEAD
-    if (profileId == curUser.username) setProfileUser(curUser)
-    console.log(profileUser)
-    // else dispatch(getUserByUsername(profileId))
-=======
-    dispatch(getUserProfile(profileId!))
->>>>>>> 5476a8fc10c3fb40c9ebb56325b91453387c367b
+    dispatch(getUserProfile(profileId!));
+    
   }, [profileId, curUser])
+
+  useEffect(() => {
+    dispatch(getSubs(profileUser.id!));
+  }, [profileUser])
 
   const items: DescriptionsProps['items'] = [
     {
@@ -55,11 +62,6 @@ function Profile() {
   ];
 
   return (
-<<<<<<< HEAD
-    <div> 
-      <h1>Profile {profileUser.firstName}</h1>
-    <img src={profileUser.image} /></div>
-=======
     <div className="profile">
 
       <Card
@@ -74,18 +76,58 @@ function Profile() {
 
       <div className="profile-posts">
         {posts.map((post) => {
-          return <Card className="profile-posts-post" key={post.id} title={post.title} extra={<a href="#">More</a>} >
+          return <Card
+            className="profile-posts-post"
+            key={post.id}
+            title={post.title}
+            extra={<a href="#">More</a>}
+            cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+          >
             <p>{post.body}</p>
-            <hr />
+            <Divider />
             {post.tags.map((tag) => {
-              return <Badge key={tag} count={tag} color='#faad14' />
+              return <><Badge key={tag} count={tag} color='#faad14' />  </>
             })}
-            <p>👍 {post.reactions}</p>
+            <p>
+              👍 {post.reactions}
+              <span className="comments-icon" onClick={() => dispatch(getPostComments(post.id))}>
+                💬
+              </span>
+            </p>
+            <hr />
+            <div className="profile-comments">
+              {post.comments?.map((comment) => {
+                return <>
+                  <div className="comment">
+                    <p>
+                      <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+                      {comment.user.username}</p>
+                    <p className="comment-body">{comment.body}</p>
+                  </div>
+                </>
+              })}
+            </div>
           </Card>
         })}
       </div>
+
+      <div className="subs">
+        {subs.map((sub) => {
+          return <>
+            <Button key={sub.id} type="primary" onClick={() => showModal(sub)}>
+              {sub.title}
+            </Button>
+
+          </>
+        })}
+        {modalContent && <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk}>
+          <p>{modalContent.title}</p>
+          <p>{modalContent.description}</p>
+          <p>{modalContent.price}</p>
+        </Modal>}
+
+      </div>
     </div>
->>>>>>> 5476a8fc10c3fb40c9ebb56325b91453387c367b
   )
 }
 

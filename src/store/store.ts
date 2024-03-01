@@ -7,10 +7,7 @@ export const store = configureStore({
     reducer: {
         counter: countSlice,
         user: userSlice,
-<<<<<<< HEAD
-=======
         blog: blogSlice,
->>>>>>> 5476a8fc10c3fb40c9ebb56325b91453387c367b
     }
 })
 
