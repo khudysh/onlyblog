@@ -19,7 +19,7 @@ function Layout() {
         const authPeriod = setInterval(() => {
             if (token) dispatch(getCurUser(token));
             console.log("Get USer")
-        }, 900000);
+        }, 9000000);
 
         return () => clearInterval(authPeriod);
 
